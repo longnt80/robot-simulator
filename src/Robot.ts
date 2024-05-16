@@ -69,7 +69,10 @@ export class Robot {
   }
 
   public left() {
-    console.log("turn left");
+    if (this.facing === null) return;
+
+    const currentIndex = this.directions.indexOf(this.facing);
+    this.facing = this.directions[(currentIndex + 1) % this.directions.length];
   }
 
   public right() {

@@ -100,5 +100,17 @@ describe("Robot", () => {
     });
   });
 
-  describe("left", () => {});
+  describe("left", () => {
+    test("turn 90 degrees to the left", () => {
+      robot.place(0, 0, "NORTH");
+      robot.left();
+      expect(robot.report().facing).toBe("WEST");
+      robot.left();
+      expect(robot.report().facing).toBe("SOUTH");
+      robot.left();
+      expect(robot.report().facing).toBe("EAST");
+      robot.left();
+      expect(robot.report().facing).toBe("NORTH");
+    });
+  });
 });
