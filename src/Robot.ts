@@ -6,12 +6,12 @@ type Configs = {
 };
 
 export class Robot {
-  private tableWidth: number = 5;
-  private tableHeight: number = 5;
-  private x: number | null = null;
-  private y: number | null = null;
-  private facing: Directions | null = null;
-  private readonly directions: Directions[] = [
+  private _tableWidth: number = 5;
+  private _tableHeight: number = 5;
+  private _x: number | null = null;
+  private _y: number | null = null;
+  private _facing: Directions | null = null;
+  private readonly _directions: Directions[] = [
     "NORTH",
     "WEST",
     "SOUTH",
@@ -20,32 +20,32 @@ export class Robot {
 
   constructor(configs?: Configs) {
     if (configs?.tableWidth && configs?.tableHeight) {
-      this.tableWidth = configs.tableWidth;
-      this.tableHeight = configs.tableHeight;
+      this._tableWidth = configs.tableWidth;
+      this._tableHeight = configs.tableHeight;
     }
   }
 
   public place(x: number, y: number, f: Directions) {
-    if (x > this.tableWidth || x < 0 || y > this.tableHeight || y < 0) {
+    if (x > this._tableWidth || x < 0 || y > this._tableHeight || y < 0) {
       throw new Error("Placed outside table");
     }
 
-    if (!this.directions.includes(f)) {
+    if (!this._directions.includes(f)) {
       throw new Error("Invalid direction");
     }
 
-    this.x = x;
-    this.y = y;
-    this.facing = f;
+    this._x = x;
+    this._y = y;
+    this._facing = f;
   }
 
   public move() {
-    if (this.x === null || this.y === null || this.facing === null) return;
+    if (this._x === null || this._y === null || this._facing === null) return;
 
-    let newX = this.x;
-    let newY = this.y;
+    let newX = this._x;
+    let newY = this._y;
 
-    switch (this.facing) {
+    switch (this._facing) {
       case "NORTH":
         newY++;
         break;
@@ -61,36 +61,38 @@ export class Robot {
     }
 
     if (this.isValidPosition(newX, newY)) {
-      this.x = newX;
-      this.y = newY;
+      this._x = newX;
+      this._y = newY;
     } else {
       return;
     }
   }
 
   public left() {
-    if (this.facing === null) return;
+    if (this._facing === null) return;
 
-    const currentIndex = this.directions.indexOf(this.facing);
-    this.facing = this.directions[(currentIndex + 1) % this.directions.length];
+    const currentIndex = this._directions.indexOf(this._facing);
+    this._facing =
+      this._directions[(currentIndex + 1) % this._directions.length];
   }
 
   public right() {
-    if (this.facing === null) return;
+    if (this._facing === null) return;
 
-    const currentIndex = this.directions.indexOf(this.facing);
-    this.facing = this.directions[(currentIndex + 3) % this.directions.length];
+    const currentIndex = this._directions.indexOf(this._facing);
+    this._facing =
+      this._directions[(currentIndex + 3) % this._directions.length];
   }
 
   public report() {
     return {
-      x: this.x,
-      y: this.y,
-      facing: this.facing,
+      x: this._x,
+      y: this._y,
+      facing: this._facing,
     };
   }
 
   private isValidPosition(x: number, y: number): boolean {
-    return x >= 0 && x <= this.tableWidth && y >= 0 && y <= this.tableHeight;
+    return x >= 0 && x <= this._tableWidth && y >= 0 && y <= this._tableHeight;
   }
 }
