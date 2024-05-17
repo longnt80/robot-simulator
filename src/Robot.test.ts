@@ -1,9 +1,12 @@
 import { Robot } from "./Robot";
+import { Directions } from "./Directions";
 
 let robot: Robot;
+let directions: Directions;
 
 beforeEach(() => {
-  robot = new Robot();
+  directions = new Directions();
+  robot = new Robot(directions);
 });
 
 describe("Robot", () => {
@@ -112,6 +115,14 @@ describe("Robot", () => {
       robot.left();
       expect(robot.report().facing).toBe("NORTH");
     });
+
+    it("doesn't change robot's position", () => {
+      robot.place(0, 0, "NORTH");
+      robot.left();
+
+      expect(robot.report().x).toBe(0);
+      expect(robot.report().y).toBe(0);
+    });
   });
 
   describe("right", () => {
@@ -125,6 +136,14 @@ describe("Robot", () => {
       expect(robot.report().facing).toBe("WEST");
       robot.right();
       expect(robot.report().facing).toBe("NORTH");
+    });
+
+    it("doesn't change robot's position", () => {
+      robot.place(0, 0, "NORTH");
+      robot.right();
+
+      expect(robot.report().x).toBe(0);
+      expect(robot.report().y).toBe(0);
     });
   });
 });

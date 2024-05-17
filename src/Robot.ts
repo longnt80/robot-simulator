@@ -1,4 +1,4 @@
-type Directions = "NORTH" | "WEST" | "SOUTH" | "EAST";
+import { Directions, TDirections } from "./Directions";
 
 type Configs = {
   tableWidth: number;
@@ -11,41 +11,43 @@ export class Robot {
   private _x: number | null = null;
   private _y: number | null = null;
   private _facing: Directions | null = null;
-  private readonly _directions: Directions[] = [
-    "NORTH",
-    "WEST",
-    "SOUTH",
-    "EAST",
-  ];
+  private _directions!: Directions;
 
-  constructor(configs?: Configs) {
+  constructor(directions: Directions, configs?: Configs) {
     if (configs?.tableWidth && configs?.tableHeight) {
       this._tableWidth = configs.tableWidth;
       this._tableHeight = configs.tableHeight;
     }
+
+    this._directions = directions;
   }
 
-  public place(x: number, y: number, f: Directions) {
+  public place(x: number, y: number, f: TDirections) {
     if (x > this._tableWidth || x < 0 || y > this._tableHeight || y < 0) {
       throw new Error("Placed outside table");
     }
 
-    if (!this._directions.includes(f)) {
+    if (!this._directions.isValid(f)) {
       throw new Error("Invalid direction");
     }
 
     this._x = x;
     this._y = y;
-    this._facing = f;
+    this._directions.facing = f;
   }
 
   public move() {
-    if (this._x === null || this._y === null || this._facing === null) return;
+    if (
+      this._x === null ||
+      this._y === null ||
+      this._directions.facing === null
+    )
+      return;
 
     let newX = this._x;
     let newY = this._y;
 
-    switch (this._facing) {
+    switch (this._directions.facing) {
       case "NORTH":
         newY++;
         break;
@@ -69,26 +71,18 @@ export class Robot {
   }
 
   public left() {
-    if (this._facing === null) return;
-
-    const currentIndex = this._directions.indexOf(this._facing);
-    this._facing =
-      this._directions[(currentIndex + 1) % this._directions.length];
+    this._directions.rotateLeft();
   }
 
   public right() {
-    if (this._facing === null) return;
-
-    const currentIndex = this._directions.indexOf(this._facing);
-    this._facing =
-      this._directions[(currentIndex + 3) % this._directions.length];
+    this._directions.rotateRight();
   }
 
   public report() {
     return {
       x: this._x,
       y: this._y,
-      facing: this._facing,
+      facing: this._directions.facing,
     };
   }
 
