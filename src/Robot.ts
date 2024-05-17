@@ -1,8 +1,8 @@
 import { Directions, TDirections } from "./Directions";
 
-type Configs = {
-  tableWidth: number;
-  tableHeight: number;
+type Table = {
+  width: number;
+  height: number;
 };
 
 export class Robot {
@@ -13,10 +13,10 @@ export class Robot {
   private _facing: Directions | null = null;
   private _directions!: Directions;
 
-  constructor(directions: Directions, configs?: Configs) {
-    if (configs?.tableWidth && configs?.tableHeight) {
-      this._tableWidth = configs.tableWidth;
-      this._tableHeight = configs.tableHeight;
+  constructor(directions: Directions, table?: Table) {
+    if (table?.width && table?.height) {
+      this._tableWidth = table.width;
+      this._tableHeight = table.height;
     }
 
     this._directions = directions;
