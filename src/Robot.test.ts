@@ -28,23 +28,6 @@ describe("Robot", () => {
 
       expect(result).toEqual(expected);
     });
-
-    test("throw when given invalid direction", () => {
-      expect(() => {
-        // @ts-ignore
-        robot.place(0, 2, "DOWNUNDER");
-      }).toThrow("Invalid direction");
-    });
-
-    test("throw when placed outside table", () => {
-      // Assume the default table is 5x5
-      expect(() => {
-        robot.place(-1, 2, "NORTH");
-      }).toThrow("Placed outside table");
-      expect(() => {
-        robot.place(0, 6, "NORTH");
-      }).toThrow("Placed outside table");
-    });
   });
 
   describe("move", () => {

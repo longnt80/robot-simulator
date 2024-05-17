@@ -22,17 +22,11 @@ export class Robot {
   }
 
   public place(x: number, y: number, f: string) {
-    if (x > this._tableWidth || x < 0 || y > this._tableHeight || y < 0) {
-      throw new Error("Placed outside table");
+    if (this.isValidPosition(x, y) && this._directions.isValid(f)) {
+      this._x = x;
+      this._y = y;
+      this._directions.facing = f;
     }
-
-    if (!this._directions.isValid(f)) {
-      throw new Error("Invalid direction");
-    }
-
-    this._x = x;
-    this._y = y;
-    this._directions.facing = f;
   }
 
   public move() {
@@ -47,16 +41,16 @@ export class Robot {
     let newY = this._y;
 
     switch (this._directions.facing) {
-      case "NORTH":
+      case this._directions.NORTH:
         newY++;
         break;
-      case "EAST":
+      case this._directions.EAST:
         newX++;
         break;
-      case "SOUTH":
+      case this._directions.SOUTH:
         newY--;
         break;
-      case "WEST":
+      case this._directions.WEST:
         newX--;
         break;
     }
