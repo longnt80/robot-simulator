@@ -10,7 +10,6 @@ export class Robot {
   private _tableHeight: number = 5;
   private _x: number | null = null;
   private _y: number | null = null;
-  private _facing: Directions | null = null;
   private _directions!: Directions;
 
   constructor(directions: Directions, table?: Table) {
