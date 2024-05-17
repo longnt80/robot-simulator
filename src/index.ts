@@ -1,5 +1,3 @@
-function main() {
-  return "Hello World";
-}
+import { Simulator } from "./Simulator";
 
-main();
+const simulator = new Simulator().simulate(process.argv.slice(2));
