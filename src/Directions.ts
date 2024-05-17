@@ -1,8 +1,10 @@
-export type TDirections = "NORTH" | "WEST" | "SOUTH" | "EAST";
-
 export class Directions {
-  private _facing: TDirections | null = null;
-  private _directions: TDirections[] = ["NORTH", "WEST", "SOUTH", "EAST"];
+  public NORTH = "NORTH";
+  public WEST = "WEST";
+  public SOUTH = "SOUTH";
+  public EAST = "EAST";
+  private _facing: string | null = null;
+  private _directions = [this.NORTH, this.WEST, this.SOUTH, this.EAST];
 
   public rotateLeft() {
     if (this._facing == null) return;
@@ -20,17 +22,17 @@ export class Directions {
       this._directions[(currentIndex + 3) % this._directions.length];
   }
 
-  public get facing(): TDirections | null {
+  public get facing(): string | null {
     return this._facing;
   }
 
-  public set facing(f: TDirections) {
+  public set facing(f: string) {
     if (!this._directions.includes(f)) return;
 
     this._facing = f;
   }
 
-  public isValid(direction: TDirections) {
+  public isValid(direction: string) {
     return this._directions.includes(direction);
   }
 }

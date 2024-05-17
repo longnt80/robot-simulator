@@ -1,4 +1,4 @@
-import { Directions, TDirections } from "./Directions";
+import { Directions } from "./Directions";
 
 type Table = {
   width: number;
@@ -21,7 +21,7 @@ export class Robot {
     this._directions = directions;
   }
 
-  public place(x: number, y: number, f: TDirections) {
+  public place(x: number, y: number, f: string) {
     if (x > this._tableWidth || x < 0 || y > this._tableHeight || y < 0) {
       throw new Error("Placed outside table");
     }
