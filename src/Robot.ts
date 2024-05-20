@@ -22,7 +22,7 @@ export class Robot {
   }
 
   public place(x: number, y: number, f: string) {
-    if (this.isValidPosition(x, y) && this._directions.isValid(f)) {
+    if (this.isValidPosition(x, y) && Directions.isValid(f)) {
       this._x = x;
       this._y = y;
       this._directions.facing = f;
@@ -45,16 +45,16 @@ export class Robot {
     let newY = this._y;
 
     switch (this._directions.facing) {
-      case this._directions.NORTH:
+      case Directions.NORTH:
         newY++;
         break;
-      case this._directions.EAST:
+      case Directions.EAST:
         newX++;
         break;
-      case this._directions.SOUTH:
+      case Directions.SOUTH:
         newY--;
         break;
-      case this._directions.WEST:
+      case Directions.WEST:
         newX--;
         break;
     }

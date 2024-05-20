@@ -1,25 +1,30 @@
 export class Directions {
-  public NORTH = "NORTH";
-  public WEST = "WEST";
-  public SOUTH = "SOUTH";
-  public EAST = "EAST";
+  static NORTH = "NORTH";
+  static WEST = "WEST";
+  static SOUTH = "SOUTH";
+  static EAST = "EAST";
   private _facing: string | null = null;
-  private _directions = [this.NORTH, this.WEST, this.SOUTH, this.EAST];
+  static directions = [
+    Directions.NORTH,
+    Directions.WEST,
+    Directions.SOUTH,
+    Directions.EAST,
+  ];
 
   public rotateLeft() {
     if (this._facing == null) return;
 
-    const currentIndex = this._directions.indexOf(this._facing);
+    const currentIndex = Directions.directions.indexOf(this._facing);
     this._facing =
-      this._directions[(currentIndex + 1) % this._directions.length];
+      Directions.directions[(currentIndex + 1) % Directions.directions.length];
   }
 
   public rotateRight() {
     if (this._facing == null) return;
 
-    const currentIndex = this._directions.indexOf(this._facing);
+    const currentIndex = Directions.directions.indexOf(this._facing);
     this._facing =
-      this._directions[(currentIndex + 3) % this._directions.length];
+      Directions.directions[(currentIndex + 3) % Directions.directions.length];
   }
 
   public get facing(): string | null {
@@ -27,12 +32,12 @@ export class Directions {
   }
 
   public set facing(f: string) {
-    if (!this._directions.includes(f)) return;
+    if (!Directions.directions.includes(f)) return;
 
     this._facing = f;
   }
 
-  public isValid(direction: string) {
-    return this._directions.includes(direction);
+  static isValid(direction: string) {
+    return Directions.directions.includes(direction);
   }
 }
