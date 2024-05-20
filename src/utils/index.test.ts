@@ -23,14 +23,14 @@ describe("inputToCommands", () => {
   });
 
   test("without special characters and extra white spaces", () => {
-    const input = "PLACE '1',[2],SOUTH MOVE ;   LEFT [MOVE] RIGHT REPORT";
+    const input = "place 5 , [5  ]],   south move; right; right] [move] REPORT";
     const expected = [
       "PLACE",
-      "1,2,SOUTH",
-      "MOVE",
-      "LEFT",
+      "5,5,SOUTH",
       "MOVE",
       "RIGHT",
+      "RIGHT",
+      "MOVE",
       "REPORT",
     ];
 
