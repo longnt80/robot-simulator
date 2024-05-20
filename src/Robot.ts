@@ -26,7 +26,11 @@ export class Robot {
       this._x = x;
       this._y = y;
       this._directions.facing = f;
+
+      return true;
     }
+
+    return false;
   }
 
   public move() {
@@ -72,11 +76,12 @@ export class Robot {
   }
 
   public report() {
-    return {
+    const result = {
       x: this._x,
       y: this._y,
       facing: this._directions.facing,
     };
+    return result;
   }
 
   private isValidPosition(x: number, y: number): boolean {
