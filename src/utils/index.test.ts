@@ -1,4 +1,4 @@
-import { inputToCommands, parsePLACEArguments } from "./index";
+import { inputToCommands } from "./index";
 
 describe("inputToCommands", () => {
   test("return an array", () => {
@@ -22,7 +22,7 @@ describe("inputToCommands", () => {
     expect(inputToCommands(input)).toEqual(expected);
   });
 
-  test("return array of commands without special characters and extra white spaces", () => {
+  test("without special characters and extra white spaces", () => {
     const input = "PLACE '1',[2],SOUTH MOVE ;   LEFT [MOVE] RIGHT REPORT";
     const expected = [
       "PLACE",
@@ -47,6 +47,13 @@ describe("inputToCommands", () => {
   test("discard extra subtring when having extra commas", () => {
     const input = "PLACE 1,2,SOUTH, MOVE";
     const expected = ["PLACE", "1,2,SOUTH"];
+
+    expect(inputToCommands(input)).toEqual(expected);
+  });
+
+  test("transform to uppercase", () => {
+    const input = "place 1,2,north move";
+    const expected = ["PLACE", "1,2,NORTH", "MOVE"];
 
     expect(inputToCommands(input)).toEqual(expected);
   });

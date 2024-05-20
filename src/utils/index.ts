@@ -9,14 +9,14 @@ export function inputToCommands(input: string): string[] {
     .map((cmdString) =>
       cmdString.includes(",")
         ? parsePLACEArguments(cmdString)
-        : cmdString.trim()
+        : cmdString.trim().toUpperCase()
     );
 }
 
 function parsePLACEArguments(args: string) {
   return args
     .split(",")
-    .map((text) => text.trim())
+    .map((text) => text.trim().toUpperCase())
     .splice(0, 3)
     .join(",");
 }

@@ -17,7 +17,7 @@ export class Simulator {
     let i = firstPLACEIndex;
 
     while (i < commands.length) {
-      const currentCommands = commands[i].toLocaleUpperCase();
+      const currentCommands = commands[i];
 
       switch (currentCommands) {
         case "PLACE":
