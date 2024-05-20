@@ -26,15 +26,15 @@ describe("Simulator", () => {
       expect(logSpy).toHaveBeenCalledTimes(0);
     });
 
-    test("log multiple REPORTs", () => {
+    test("log multiple REPORTs in correct order", () => {
       const simulator = new Simulator();
       const commands = "PLACE 0,0,NORTH MOVE REPORT LEFT REPORT";
 
       simulator.simulate(commands);
 
       expect(logSpy).toHaveBeenCalledTimes(2);
-      expect(logSpy).toHaveBeenCalledWith(0, 1, "NORTH");
-      expect(logSpy).toHaveBeenCalledWith(0, 1, "WEST");
+      expect(logSpy).toHaveBeenNthCalledWith(1, 0, 1, "NORTH");
+      expect(logSpy).toHaveBeenNthCalledWith(2, 0, 1, "WEST");
     });
 
     test("discard commands without valid preceding PLACE command", () => {
@@ -47,14 +47,12 @@ describe("Simulator", () => {
     });
   });
 
-  describe("invalid commands", () => {
-    test("terminate command", () => {
-      const simulator = new Simulator();
-      const commands = "PLACE 0,0,NORTH MOV REPORT";
+  test("throw error on invalid command", () => {
+    const simulator = new Simulator();
+    const commands = "PLACE 0,0,NORTH MOV REPORT";
 
-      expect(() => {
-        simulator.simulate(commands);
-      }).toThrow();
-    });
+    expect(() => {
+      simulator.simulate(commands);
+    }).toThrow();
   });
 });
