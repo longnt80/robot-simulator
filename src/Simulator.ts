@@ -48,7 +48,7 @@ export class Simulator {
           i++;
           break;
         default:
-          throw new Error("Invalid command");
+          throw new Error(`Invalid command: "${currentCommands}"`);
       }
     }
   }
