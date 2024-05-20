@@ -1,6 +1,6 @@
 import { Directions } from "./Directions";
 import { Robot } from "./Robot";
-import { inputToCommands, parsePLACEArguments } from "./utils";
+import { inputToCommands } from "./utils";
 
 export class Simulator {
   public simulate(command: string) {
@@ -21,8 +21,9 @@ export class Simulator {
 
       switch (currentCommands) {
         case "PLACE":
-          const { x, y, f } = parsePLACEArguments(commands[i + 1]);
-          const placed = robot.place(x, y, f);
+          const placeArgs = commands[i + 1];
+          const [x, y, f] = placeArgs.split(",");
+          const placed = robot.place(parseInt(x), parseInt(y), f);
           if (placed) {
             i = i + 2;
           } else {
