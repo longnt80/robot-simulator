@@ -35,8 +35,8 @@ describe("Simulator", () => {
       simulator.simulate(commands);
 
       expect(logSpy).toHaveBeenCalledTimes(2);
-      expect(logSpy).toHaveBeenNthCalledWith(1, 0, 1, "NORTH");
-      expect(logSpy).toHaveBeenNthCalledWith(2, 0, 1, "WEST");
+      expect(logSpy).toHaveBeenNthCalledWith(1, "0, 1, NORTH");
+      expect(logSpy).toHaveBeenNthCalledWith(2, "0, 1, WEST");
     });
 
     test("discard commands without valid preceding PLACE command", () => {
@@ -53,7 +53,7 @@ describe("Simulator", () => {
 
       simulator.simulate(commands);
 
-      expect(logSpy).toHaveBeenCalledWith(5, 5, "NORTH");
+      expect(logSpy).toHaveBeenCalledWith("5, 5, NORTH");
     });
 
     test("throw error on invalid command", () => {
