@@ -46,8 +46,9 @@ export class Simulator {
           const { x: reportedX, y: reportedY, facing } = robot.report();
           console.log(reportedX, reportedY, facing);
           i++;
-        default:
           break;
+        default:
+          throw new Error("Invalid command");
       }
     }
   }

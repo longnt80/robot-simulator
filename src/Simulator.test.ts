@@ -46,4 +46,15 @@ describe("Simulator", () => {
       expect(logSpy).toHaveBeenCalledTimes(0);
     });
   });
+
+  describe("invalid commands", () => {
+    test("terminate command", () => {
+      const simulator = new Simulator();
+      const commands = "PLACE 0,0,NORTH MOV REPORT";
+
+      expect(() => {
+        simulator.simulate(commands);
+      }).toThrow();
+    });
+  });
 });
